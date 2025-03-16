@@ -6,7 +6,7 @@ import os
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Make.com Webhook URL (replace with your actual webhook)
-webhook_url = "https://hook.make.com/your-unique-webhook-url"
+webhook_url = https://hook.eu2.make.com/l861igtg1gq8x4ckxgcvir24bu31fkbj
 
 st.title("🚀 Aircraft Manual AI Chatbot")
 st.write("Ask me anything about aircraft systems, and I'll find the answers from the manuals.")
