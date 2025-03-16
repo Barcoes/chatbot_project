@@ -8,7 +8,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 # Make.com Webhook URL
 webhook_url = "https://hook.eu2.make.com/l861igtg1gq8x4ckxgcvir24bu31fkbj"
 
-st.title("🚀 Seans Wife Aircraft Manual Cheat Sheet")
+st.title("🚀 Sean's Wife Aircraft Manual Cheat Sheet")
 st.write("Ask me anything about aircraft systems, and I'll find the answers from the manuals.")
 
 # User Input Field
