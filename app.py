@@ -1,35 +1,40 @@
 import streamlit as st
-import openai
+import requests
 import os
 
-# Retrieve API key from Render's environment variables
+# Retrieve OpenAI API key from Render's environment variables
 api_key = os.getenv("OPENAI_API_KEY")
 
-# Ensure API key is set
-if not api_key:
-    st.error("API key is missing! Please check Render's environment settings.")
-else:
-    client = openai.OpenAI(api_key=api_key)  # Correct way to set API key
+# Make.com Webhook URL (replace with your actual webhook)
+webhook_url = "https://hook.make.com/your-unique-webhook-url"
 
-st.title("AI Chatbot")
+st.title("🚀 Aircraft Manual AI Chatbot")
+st.write("Ask me anything about aircraft systems, and I'll find the answers from the manuals.")
 
-user_input = st.text_input("Ask a question:")
+# User Input Field
+user_question = st.text_input("Enter your question:")
 
-if user_input:
-    try:
-        # Correct OpenAI API call using new format
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Change to "gpt-4" if you have access
-            messages=[
-                {"role": "system", "content": "You are a helpful AI assistant."},
-                {"role": "user", "content": user_input}
-            ]
-        )
+if st.button("Ask AI"):
+    if user_question.strip():
+        try:
+            # Send the question to Make.com Webhook
+            response = requests.post(
+                webhook_url,
+                json={"question": user_question}
+            )
 
-        # Extract AI response
-        ai_reply = response.choices[0].message.content
+            # Handle Make.com Response
+            if response.status_code == 200:
+                data = response.json()
+                st.write("### 🤖 AI Answer:")
+                st.write(data.get("answer", "No response received."))
 
-        st.write(ai_reply)
+                st.write("### 📖 References:")
+                st.write(data.get("references", "No references found."))
+            else:
+                st.error("Error retrieving response. Please try again.")
 
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+    else:
+        st.warning("Please enter a question before submitting.")
