@@ -31,5 +31,5 @@ if user_input:
 
         st.write(ai_reply)
 
-    except openai.error.OpenAIError as e:
-        st.error(f"OpenAI API error: {str(e)}")
+    except Exception as e:  # Correct error handling
+        st.error(f"An error occurred: {str(e)}")
